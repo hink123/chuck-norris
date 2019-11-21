@@ -3,15 +3,15 @@ var router = express.Router();
 var request = require('request');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Chuck', joke: null });
-});
+// router.get('/', function(req, res, next) {
+//   res.render('index', { title: 'Chuck', joke: null });
+// });
 
-router.post('/', function(req, res) {
-  request('https://api.chucknorris.io/jokes/random',
+router.get('/', function(req, res) {
+  var url = 'https://api.chucknorris.io/jokes/random?category=' + req.query.category;
+  request(url,
   function(err, response, body) {
     var joke = JSON.parse(body);
-    console.log('joke: ' + body)
     res.render('index', {joke: joke});
   })
 })
